@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>段落 — 纯文本转 HTML · WordPress 空行</title>
+<meta name="description" content="段落：纯文本自动标题、段落与 WordPress 空行，本地浏览器完成。">
+<meta name="keywords" content="段落,WordPress,HTML,分段,排版">
+<link rel="canonical" href="https://duanluo.cn/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="段落 — 纯文本转 HTML">
+<meta property="og:description" content="自动 p、H 标签、WordPress 空行。">
+<meta property="og:url" content="https://duanluo.cn/">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="段落">
+<meta name="twitter:description" content="本地排版，纯文本转 HTML。">
+<meta name="theme-color" content="#007aff">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "段落",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "description": "纯文本转 HTML、WordPress 段落空行。",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
+}
+</script>
+<style>
+* { box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, "Microsoft YaHei", "PingFang SC", sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    line-height: 1.6;
+    padding: 24px 20px 40px;
+    background: #f5f5f7;
+    color: #1d1d1f;
+}
+.site-header { text-align: center; margin-bottom: 24px; }
+.site-header h1 { font-size: clamp(1.35rem, 3.5vw, 1.75rem); margin: 0 0 8px; font-weight: 700; }
+.site-header p { margin: 0; font-size: 14px; color: #666; }
+.container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    padding: 28px;
+}
+h2 { color: #1d1d1f; margin: 0 0 14px; font-size: 20px; }
+.tip {
+    background: linear-gradient(135deg, #007aff 0%, #5856d6 100%);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+.textarea-wrapper { margin-bottom: 16px; }
+textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 14px;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 13px;
+    border: 2px solid #e5e5e7;
+    border-radius: 8px;
+    resize: vertical;
+    transition: border-color 0.2s;
+}
+textarea:focus { outline: none; border-color: #007aff; }
+label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }
+.option-item { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.option-item input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+.option-item input[type="number"] { width: 64px; padding: 6px 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+.option-item label { margin-bottom: 0; font-weight: normal; cursor: pointer; }
+.btn-group { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; }
+button {
+    padding: 11px 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+button.primary {
+    background: linear-gradient(135deg, #007aff 0%, #5856d6 100%);
+    color: #fff;
+}
+button.primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,122,255,0.35); }
+button.copy-btn { background: #34c759; color: #fff; }
+button.copy-btn:hover:not(:disabled) { background: #30d158; }
+button.clear-btn { background: #ff3b30; color: #fff; }
+button.clear-btn:hover:not(:disabled) { background: #ff453a; }
+.output-section { background: #f5f5f7; border-radius: 8px; padding: 18px; margin-top: 8px; }
+.output-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+.stats { font-size: 13px; color: #666; display: flex; gap: 10px; flex-wrap: wrap; }
+.stats span { background: #fff; padding: 4px 10px; border-radius: 12px; }
+.site-footer { text-align: center; margin-top: 24px; font-size: 13px; color: #888; }
+#copyTip { color: #34c759; font-weight: 600; font-size: 14px; display: none; }
+.compact-bar {
+    display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+    margin-bottom: 14px; padding: 12px 14px; background: #f5f5f7; border-radius: 8px;
+}
+.compact-bar .option-item label { font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <h1>段落</h1>
+    <p>纯文本 → 自动 &lt;p&gt;、标题、WordPress 空行（仅本地浏览器）</p>
+</header>
+
+<div class="container">
+    <div class="tip">粘贴正文，支持 <code>#</code>～<code>######</code> 标题行与空行分段；点「一键生成」后可在下方输出里继续手改。</div>
+
+    <h2>正文</h2>
+    <div class="textarea-wrapper">
+        <label for="inputPlain">输入</label>
+        <textarea id="inputPlain" placeholder="示例：&#10;文章标题&#10;&#10;第一段……&#10;&#10;第二段……"></textarea>
+    </div>
+    <div class="compact-bar">
+        <div class="option-item">
+            <input type="checkbox" id="plainAutoP" checked>
+            <label for="plainAutoP">自动 &lt;p&gt;</label>
+        </div>
+        <div class="option-item">
+            <input type="checkbox" id="plainBlankLine" checked>
+            <label for="plainBlankLine">段间空行（&amp;nbsp;）</label>
+        </div>
+        <div class="option-item">
+            <label for="plainMaxLen">长段约</label>
+            <input type="number" id="plainMaxLen" value="320" min="80" max="800">
+            <span style="font-size:13px;color:#666">字断句</span>
+        </div>
+        <div class="option-item">
+            <input type="checkbox" id="plainFirstLineH1" checked>
+            <label for="plainFirstLineH1">首行较短且无 <code>#</code> 时当作 H1</label>
+        </div>
+    </div>
+    <div class="btn-group" id="plainBtnGroup">
+        <button type="button" class="primary" onclick="runPlainPipeline()">一键生成 HTML</button>
+        <button type="button" class="copy-btn" onclick="copyOutput()">复制 HTML</button>
+        <button type="button" class="clear-btn" onclick="clearPlain()">清空</button>
+        <span id="copyTip">✓ 已复制</span>
+    </div>
+
+    <section class="output-section">
+        <div class="output-header">
+            <label for="output">输出 HTML</label>
+            <div class="stats" id="stats">
+                <span id="charCount">字符: 0</span>
+                <span id="lineCount">行数: 0</span>
+                <span id="elementCount">元素: 0</span>
+            </div>
+        </div>
+        <textarea id="output" placeholder="生成结果，可手改…"></textarea>
+    </section>
+</div>
+
+<footer class="site-footer">
+    <p>段落 · <a href="https://duanluo.cn/">duanluo.cn</a> · 无上传</p>
+</footer>
+
+<script>
+function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function heuristicSegment(text, maxChars) {
+    const t = text.replace(/\r\n/g, '\n').trim();
+    if (!t) return [];
+    const hardParts = t.split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
+    const out = [];
+    for (const block of hardParts) {
+        if (block.length <= maxChars) {
+            out.push(block);
+            continue;
+        }
+        let buf = '';
+        let start = 0;
+        for (let i = 0; i < block.length; i++) {
+            const ch = block[i];
+            const isEnd = /[。！？!?]/.test(ch) || (ch === '.' && /[a-zA-Z0-9]/.test(block[i - 1] || ''));
+            if (isEnd || i === block.length - 1) {
+                const piece = block.slice(start, i + 1).trim();
+                start = i + 1;
+                if (!piece) continue;
+                if ((buf + piece).length <= maxChars) buf += piece;
+                else {
+                    if (buf) out.push(buf.trim());
+                    buf = piece;
+                    while (buf.length > maxChars) {
+                        out.push(buf.slice(0, maxChars).trim());
+                        buf = buf.slice(maxChars).trim();
+                    }
+                }
+            }
+        }
+        if (buf.trim()) out.push(buf.trim());
+    }
+    return out.length ? out : [t];
+}
+
+function parsePlainToBlocks(text) {
+    const lines = text.replace(/\r\n/g, '\n').split('\n');
+    const blocks = [];
+    let i = 0;
+    const firstLineH1 = document.getElementById('plainFirstLineH1').checked;
+
+    if (firstLineH1 && lines.length > 0) {
+        const first = lines[0].trim();
+        const second = lines[1] !== undefined ? lines[1].trim() : '';
+        if (first && !/^#{1,6}\s/.test(first) && first.length <= 40 && (second === '' || lines.length > 1)) {
+            blocks.push({ type: 'h', level: 1, text: first });
+            i = 1;
+            if (second === '') i = 2;
+        }
+    }
+
+    while (i < lines.length) {
+        const line = lines[i];
+        const m = line.match(/^(#{1,6})\s+(.*)$/);
+        if (m) {
+            blocks.push({ type: 'h', level: m[1].length, text: m[2].trim() });
+            i++;
+            continue;
+        }
+        let para = [];
+        while (i < lines.length && lines[i].trim() !== '') {
+            if (/^(#{1,6})\s+/.test(lines[i])) break;
+            para.push(lines[i]);
+            i++;
+        }
+        if (para.length) blocks.push({ type: 'p', text: para.join('\n').trim() });
+        while (i < lines.length && lines[i].trim() === '') i++;
+    }
+    return blocks;
+}
+
+function blocksToHtml(blocks, wrapP, blankLine) {
+    const parts = [];
+    const nb = '\n&nbsp;\n';
+    const maxLen = parseInt(document.getElementById('plainMaxLen').value, 10) || 320;
+    for (const b of blocks) {
+        if (b.type === 'h') {
+            const tag = 'h' + Math.min(6, Math.max(1, b.level));
+            parts.push(`<${tag}>${escapeHtml(b.text)}</${tag}>`);
+            if (blankLine) parts.push(nb);
+        } else {
+            if (wrapP) {
+                const segs = heuristicSegment(b.text, maxLen);
+                for (const seg of segs) {
+                    parts.push(`<p>${escapeHtml(seg)}</p>`);
+                    if (blankLine) parts.push(nb);
+                }
+            } else {
+                parts.push(escapeHtml(b.text));
+                if (blankLine) parts.push(nb);
+            }
+        }
+    }
+    return parts.join('\n').replace(/\n&nbsp;\n+$/, '').trim();
+}
+
+function plainTextToHtml(text) {
+    const t = (text || '').trim();
+    if (!t) return '';
+    return blocksToHtml(
+        parsePlainToBlocks(t),
+        document.getElementById('plainAutoP').checked,
+        document.getElementById('plainBlankLine').checked
+    );
+}
+
+function setOutput(html) {
+    document.getElementById('output').value = html;
+    updateStats(html);
+}
+
+function runPlainPipeline() {
+    const text = document.getElementById('inputPlain').value.trim();
+    if (!text) { alert('请先输入正文'); return; }
+    const maxLen = parseInt(document.getElementById('plainMaxLen').value, 10) || 320;
+    const segmented = heuristicSegment(text, maxLen).join('\n\n');
+    document.getElementById('inputPlain').value = segmented;
+    updateStats(segmented);
+    setOutput(plainTextToHtml(segmented));
+}
+
+function showCopyTipPlain() {
+    const tip = document.getElementById('copyTip');
+    tip.style.display = 'inline';
+    setTimeout(() => { tip.style.display = 'none'; }, 1000);
+}
+
+function copyOutput() {
+    const output = document.getElementById('output');
+    if (!output.value) { alert('没有内容可复制'); return; }
+    navigator.clipboard.writeText(output.value).then(showCopyTipPlain);
+}
+
+function clearPlain() {
+    document.getElementById('inputPlain').value = '';
+    document.getElementById('output').value = '';
+    updateStats('');
+}
+
+function updateStats(text) {
+    document.getElementById('charCount').textContent = '字符: ' + text.length;
+    document.getElementById('lineCount').textContent = '行数: ' + (text ? text.split('\n').length : 0);
+    const elementMatches = text.match(/<[a-z][a-z0-9]*[^>]*>/gi);
+    document.getElementById('elementCount').textContent = '元素: ' + (elementMatches ? elementMatches.length : 0);
+}
+
+document.getElementById('inputPlain').addEventListener('input', function () {
+    updateStats(this.value);
+});
+document.getElementById('output').addEventListener('input', function () {
+    updateStats(this.value);
+});
+</script>
+</body>
+</html>
