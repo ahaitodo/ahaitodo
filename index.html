@@ -2,327 +2,249 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>段落 - DuanLuo.cn — 纯文本转 HTML · WordPress 空行</title>
-<meta name="description" content="段落：纯文本自动标题、段落与 WordPress 空行，本地浏览器完成。">
-<meta name="keywords" content="段落,WordPress,HTML,分段,排版">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>段落 - 在线文本排版工具 | DuanLuo.cn</title>
+<meta name="description" content="段落（DuanLuo.cn）是一款极简的在线文本排版工具，智能识别标题层级，一键格式化博客文章、Markdown 和 HTML 内容，支持实时预览和一键复制和下载。">
+<meta name="keywords" content="段落排版,文本排版,在线排版工具,WordPress排版,HTML格式化,标题识别,博客排版,DuanLuo,duanluo.cn">
+<meta name="author" content="DuanLuo.cn">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="https://duanluo.cn/">
+<meta property="og:title" content="段落 - 在线文本排版工具 | DuanLuo.cn">
+<meta property="og:description" content="极简在线文本排版工具，智能识别标题，一键格式化，实时预览。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="段落 - DuanLuo.cn — 纯文本转 HTML">
-<meta property="og:description" content="自动 p、H 标签、WordPress 空行。">
 <meta property="og:url" content="https://duanluo.cn/">
-<meta property="og:locale" content="zh_CN">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="段落 - DuanLuo.cn">
-<meta name="twitter:description" content="本地排版，纯文本转 HTML。">
-<meta name="theme-color" content="#007aff">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "段落 - DuanLuo.cn",
-  "applicationCategory": "UtilitiesApplication",
-  "operatingSystem": "Any",
-  "description": "纯文本转 HTML、WordPress 段落空行。",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
-}
-</script>
+<meta property="og:site_name" content="段落 - DuanLuo.cn">
 <style>
-* { box-sizing: border-box; }
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, "Microsoft YaHei", "PingFang SC", sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    line-height: 1.6;
-    padding: 24px 20px 40px;
-    background: #f5f5f7;
-    color: #1d1d1f;
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f7f8fa;--surface:#fff;--text:#1a1a2e;--text2:#555;--border:#e0e0e0;--primary:#2563eb;--primary-h:#1d4ed8;--success:#16a34a;--success-h:#15803d;--muted:#888;--radius:8px;--shadow:0 1px 3px rgba(0,0,0,.08)}
+.dark{--bg:#111;--surface:#1e1e1e;--text:#e0e0e0;--text2:#aaa;--border:#333;--primary:#3b82f6;--primary-h:#60a5fa;--success:#22c55e;--success-h:#4ade80;--muted:#666;--shadow:0 1px 3px rgba(0,0,0,.3)}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s,color .3s}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 20px}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.brand{display:flex;align-items:baseline;gap:8px}
+.brand h1{font-size:22px;font-weight:700;letter-spacing:.5px;color:var(--text)}
+.brand span{font-size:12px;color:var(--muted)}
+.header-actions{display:flex;gap:8px;align-items:center}
+#themeToggle{background:none;border:1px solid var(--border);border-radius:var(--radius);padding:6px 10px;cursor:pointer;color:var(--text);font-size:16px;line-height:1}
+#themeToggle:hover{background:var(--border)}
+.dark #themeToggle{background:#2a2a2a;border-color:#444}
+h2.main-title{color:#0073aa;font-size:20px;margin-bottom:16px;font-family:Arial,sans-serif}
+.dark h2.main-title{color:#60a5fa}
+.dark .tip{background:#1a2332;border-left-color:#3b82f6;color:#ccc}
+.dark .tip code{background:#2a2a2a}
+.dark .tip strong{color:#60a5fa}
+.dark .opts{background:#1e1e1e;border-color:#333}
+.dark .opts input[type=number]{background:#111;border-color:#333;color:#ccc}
+.tip{background:#eaf2f8;border-left:4px solid #3498db;border-radius:4px;padding:12px 16px;margin-bottom:20px;font-size:13.5px;color:#333;line-height:1.8}
+.tip code{background:#ecf0f1;padding:2px 6px;border-radius:3px;font-size:12.5px}
+.tip strong{color:#2980b9}
+.opts{background:#fff;border:1px solid #ddd;border-radius:6px;padding:14px 18px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:12px 20px;font-size:13.5px;box-shadow:none}
+.opts label{display:inline-flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap}
+.opts input[type=number]{width:50px;padding:3px 6px;border:1px solid #ccc;border-radius:3px;background:var(--bg);color:var(--text);font-size:13px}
+.opts input[type=checkbox]{accent-color:#0073aa}
+.opts .opt-group{margin-top:8px;padding-top:8px;border-top:1px solid #eee}
+textarea{width:100%;height:280px;margin-bottom:12px;padding:10px;font-family:Consolas,monospace;font-size:13px;border:1px solid #ccc;border-radius:4px;background:var(--surface);color:var(--text);resize:vertical;transition:border .2s;line-height:1.7;box-sizing:border-box;white-space:pre;overflow-wrap:normal;word-break:normal}
+.dark textarea{border-color:#333}
+textarea:focus{outline:none;border-color:#0073aa;box-shadow:0 0 0 2px rgba(0,115,170,.12)}
+.dark textarea:focus{border-color:#3b82f6;box-shadow:0 0 0 2px rgba(59,130,246,.2)}
+textarea::placeholder{color:var(--muted)}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+button{padding:10px 22px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:500;transition:background .2s;color:#fff;background:#0073aa}
+button:hover{background:#005f8d}
+button.purple{background:#8e44ad}
+button.purple:hover{background:#6c3483}
+button.gray{background:#888}
+button.gray:hover{background:#666}
+button.outline{background:#888}
+button.outline:hover{background:#666}
+h3.section-label{color:#333;font-size:15px;margin:20px 0 8px;font-family:Arial,sans-serif}
+.dark h3.section-label{color:#ccc}
+.preview{background:#fff;border:1px solid #ccc;border-radius:4px;padding:16px;margin-top:12px;display:none;font-size:14px;line-height:1.8;box-shadow:none;font-family:Arial,sans-serif;text-align:left}
+.preview p{margin:0 0 1em;text-indent:0}
+.dark .preview{background:#1e1e1e;border-color:#333;color:#ccc}
+.preview h2,.preview h3{color:#0073aa;margin:.6em 0 .3em}
+.dark .preview h2,.dark .preview h3{color:#60a5fa}
+.preview h2{font-size:1.3em}
+.preview h3{font-size:1.1em}
+.stats{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-top:6px}
+.dark .stats{color:#777}
+footer{text-align:center;margin-top:32px;padding:16px 0;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+.dark footer{background:#111}
+.copy-tip{font-size:12px;color:#28a745;margin-left:10px;display:none}
+.dark .copy-tip{color:#4ade80}
+@media(max-width:600px){
+.opts{flex-direction:column;gap:8px}
+.btn-row{flex-direction:column}
+.btn-row button{width:100%}
+header{flex-direction:column;gap:12px;align-items:flex-start}
 }
-.site-header { text-align: center; margin-bottom: 24px; }
-.site-header h1 { font-size: clamp(1.35rem, 3.5vw, 1.75rem); margin: 0 0 8px; font-weight: 700; }
-.site-header p { margin: 0; font-size: 14px; color: #666; }
-.container {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-    padding: 28px;
-}
-h2 { color: #1d1d1f; margin: 0 0 14px; font-size: 20px; }
-.tip {
-    background: linear-gradient(135deg, #007aff 0%, #5856d6 100%);
-    color: #fff;
-    padding: 12px 18px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    font-size: 14px;
-}
-.textarea-wrapper { margin-bottom: 16px; }
-textarea {
-    width: 100%;
-    min-height: 200px;
-    padding: 14px;
-    font-family: Consolas, Monaco, monospace;
-    font-size: 13px;
-    border: 2px solid #e5e5e7;
-    border-radius: 8px;
-    resize: vertical;
-    transition: border-color 0.2s;
-}
-textarea:focus { outline: none; border-color: #007aff; }
-label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }
-.option-item { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.option-item input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
-.option-item input[type="number"] { width: 64px; padding: 6px 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
-.option-item label { margin-bottom: 0; font-weight: normal; cursor: pointer; }
-.btn-group { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; }
-button {
-    padding: 11px 20px;
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-}
-button.primary {
-    background: linear-gradient(135deg, #007aff 0%, #5856d6 100%);
-    color: #fff;
-}
-button.primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,122,255,0.35); }
-button.copy-btn { background: #34c759; color: #fff; }
-button.copy-btn:hover:not(:disabled) { background: #30d158; }
-button.clear-btn { background: #ff3b30; color: #fff; }
-button.clear-btn:hover:not(:disabled) { background: #ff453a; }
-.output-section { background: #f5f5f7; border-radius: 8px; padding: 18px; margin-top: 8px; }
-.output-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
-.stats { font-size: 13px; color: #666; display: flex; gap: 10px; flex-wrap: wrap; }
-.stats span { background: #fff; padding: 4px 10px; border-radius: 12px; }
-.site-footer { text-align: center; margin-top: 24px; font-size: 13px; color: #888; }
-#copyTip { color: #34c759; font-weight: 600; font-size: 14px; display: none; }
-.compact-bar {
-    display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
-    margin-bottom: 14px; padding: 12px 14px; background: #f5f5f7; border-radius: 8px;
-}
-.compact-bar .option-item label { font-size: 13px; }
 </style>
 </head>
 <body>
-
-<header class="site-header">
-    <h1>段落 - DuanLuo.cn</h1>
-    <p>纯文本 → 自动 &lt;p&gt;、标题、WordPress 空行（仅本地浏览器）</p>
+<div class="wrap">
+<header>
+  <div class="brand">
+    <h1>段落</h1>
+    <span>DuanLuo.cn</span>
+  </div>
+  <div class="header-actions">
+    <button id="themeToggle" title="切换深色模式" onclick="toggleTheme()">&#x1F319;</button>
+  </div>
 </header>
-
-<div class="container">
-    <div class="tip">粘贴正文，支持 <code>#</code>～<code>######</code> 标题行与空行分段；点「一键生成」后可在下方输出里继续手改。</div>
-
-    <h2>正文</h2>
-    <div class="textarea-wrapper">
-        <label for="inputPlain">输入</label>
-        <textarea id="inputPlain" placeholder="示例：&#10;文章标题&#10;&#10;第一段……&#10;&#10;第二段……"></textarea>
-    </div>
-    <div class="compact-bar">
-        <div class="option-item">
-            <input type="checkbox" id="plainAutoP" checked>
-            <label for="plainAutoP">自动 &lt;p&gt;</label>
-        </div>
-        <div class="option-item">
-            <input type="checkbox" id="plainBlankLine" checked>
-            <label for="plainBlankLine">段间空行（&amp;nbsp;）</label>
-        </div>
-        <div class="option-item">
-            <label for="plainMaxLen">长段约</label>
-            <input type="number" id="plainMaxLen" value="320" min="80" max="800">
-            <span style="font-size:13px;color:#666">字断句</span>
-        </div>
-        <div class="option-item">
-            <input type="checkbox" id="plainFirstLineH1" checked>
-            <label for="plainFirstLineH1">首行较短且无 <code>#</code> 时当作 H1</label>
-        </div>
-    </div>
-    <div class="btn-group" id="plainBtnGroup">
-        <button type="button" class="primary" onclick="runPlainPipeline()">一键生成 HTML</button>
-        <button type="button" class="copy-btn" onclick="copyOutput()">复制 HTML</button>
-        <button type="button" class="clear-btn" onclick="clearPlain()">清空</button>
-        <span id="copyTip">✓ 已复制</span>
-    </div>
-
-    <section class="output-section">
-        <div class="output-header">
-            <label for="output">输出 HTML</label>
-            <div class="stats" id="stats">
-                <span id="charCount">字符: 0</span>
-                <span id="lineCount">行数: 0</span>
-                <span id="elementCount">元素: 0</span>
-            </div>
-        </div>
-        <textarea id="output" placeholder="生成结果，可手改…"></textarea>
-    </section>
+<h2 class="main-title">WordPress 博文格式化工具 &#x2014; 智能识别版</h2>
+<div class="tip">
+  <strong>&#x1F50D; 智能识别规则：</strong><br>
+  &bull; <strong>H2 标题</strong>：自动将<strong>第一行</strong>识别为 H2 主标题<br>
+  &bull; <strong>H3 子标题</strong>：自动识别独立成段的<strong>短行</strong>作为子标题（默认 &#x2264;80 字符且不含逗号/句号结尾的段落）<br>
+  &bull; <strong>普通段落</strong>：长段落保持不变<br>
+  &bull; 所有标题前后自动加 <code>&amp;nbsp;</code> 空行<br>
+  &bull; 同时支持<strong>带 &lt;strong&gt; 标签的输入</strong>：会先去掉标签再智能判断层级
 </div>
-
-<footer class="site-footer">
-    <p>段落 - DuanLuo.cn · <a href="https://duanluo.cn/">duanluo.cn</a> · 无上传</p>
+<div class="opts">
+  <label>子标题最大字数 <input type="number" id="maxLen" value="80" min="30" max="200"></label>
+  <label><input type="checkbox" id="wrapStrongH2" checked> H2 加 <code>&lt;strong&gt;</code></label>
+  <label><input type="checkbox" id="wrapStrongH3" checked> H3 加 <code>&lt;strong&gt;</code></label>
+  <label><input type="checkbox" id="autoPreview" checked> 实时预览</label>
+</div>
+<h3 class="section-label">&#x1F4E5; 输入区</h3>
+<textarea id="input" placeholder="在这里粘贴原始博文内容（纯文本或带 strong 标签均可）..."></textarea>
+<div class="stats"><span id="inputStats"></span></div>
+<div class="btn-row">
+  <button class="purple" onclick="smartFormat()">智能自动格式化（自动识别标题）</button>
+  <button class="gray" onclick="clearAll()">清空</button>
+</div>
+<h3 class="section-label">&#x1F4E4; 输出结果</h3>
+<textarea id="output" placeholder="处理后的 HTML 结果..."></textarea>
+<div class="stats"><span id="outputStats"></span></div>
+<div class="btn-row">
+  <button onclick="copyOutput()">&#x1F4CB; 复制输出内容</button>
+  <span class="copy-tip" id="copyTip">&#x2705; 已复制到剪贴板！</span>
+  <button class="purple" onclick="downloadOutput()">&#x1F4BE; 下载 HTML</button>
+</div>
+<div class="preview" id="preview"></div>
+<footer>
+  <a href="https://duanluo.cn" target="_blank">段落 - DuanLuo.cn</a> &middot; 极简文本排版工具
 </footer>
-
+</div>
 <script>
-function escapeHtml(s) {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+function toggleTheme(){
+  document.documentElement.classList.toggle('dark');
+  var isDark=document.documentElement.classList.contains('dark');
+  document.getElementById('themeToggle').textContent=isDark?'\u2600\uFE0F':'\uD83C\uDF19';
+  localStorage.setItem('theme',isDark?'dark':'light');
 }
-
-function heuristicSegment(text, maxChars) {
-    const t = text.replace(/\r\n/g, '\n').trim();
-    if (!t) return [];
-    const hardParts = t.split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
-    const out = [];
-    for (const block of hardParts) {
-        if (block.length <= maxChars) {
-            out.push(block);
-            continue;
-        }
-        let buf = '';
-        let start = 0;
-        for (let i = 0; i < block.length; i++) {
-            const ch = block[i];
-            const isEnd = /[。！？!?]/.test(ch) || (ch === '.' && /[a-zA-Z0-9]/.test(block[i - 1] || ''));
-            if (isEnd || i === block.length - 1) {
-                const piece = block.slice(start, i + 1).trim();
-                start = i + 1;
-                if (!piece) continue;
-                if ((buf + piece).length <= maxChars) buf += piece;
-                else {
-                    if (buf) out.push(buf.trim());
-                    buf = piece;
-                    while (buf.length > maxChars) {
-                        out.push(buf.slice(0, maxChars).trim());
-                        buf = buf.slice(maxChars).trim();
-                    }
-                }
-            }
-        }
-        if (buf.trim()) out.push(buf.trim());
+(function(){
+  if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&matchMedia('(prefers-color-scheme:dark)').matches)){
+    document.documentElement.classList.add('dark');
+    document.getElementById('themeToggle').textContent='\u2600\uFE0F';
+  }
+})();
+function updateStats(){
+  var iv=document.getElementById('input').value;
+  var ov=document.getElementById('output').value;
+  document.getElementById('inputStats').textContent=iv?iv.length+' 字符':'';
+  document.getElementById('outputStats').textContent=ov?ov.length+' 字符':'';
+}
+var TRIM_RE=/^[\s\xA0\uFEFF\u2000-\u200A\u2028\u2029\u3000]+|[\s\xA0\uFEFF\u2000-\u200A\u2028\u2029\u3000]+$/g;
+function smartFormat(){
+  var raw=document.getElementById('input').value;
+  var text=raw.replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  var lines=text.split('\n');
+  var maxLen=parseInt(document.getElementById('maxLen').value)||80;
+  var wrapH2=document.getElementById('wrapStrongH2').checked;
+  var wrapH3=document.getElementById('wrapStrongH3').checked;
+  var out=[];
+  var isFirst=true;
+  var i,line,clean;
+  for(i=0;i<lines.length;i++){
+    line=lines[i].replace(TRIM_RE,'');
+    if(line.length===0)continue;
+    clean=line.replace(/<[^>]+>/g,'').replace(TRIM_RE,'');
+    if(isFirst){
+      if(wrapH2){
+        out.push('<h2><strong>'+clean+'</strong></h2>');
+      }else{
+        out.push('<h2>'+clean+'</h2>');
+      }
+      out.push('&nbsp;');
+      isFirst=false;
+    }else if(isLikelyHeading(clean,maxLen)){
+      out.push('&nbsp;');
+      if(wrapH3){
+        out.push('<h3><strong>'+clean+'</strong></h3>');
+      }else{
+        out.push('<h3>'+clean+'</h3>');
+      }
+      out.push('&nbsp;');
+    }else{
+      out.push(clean);
     }
-    return out.length ? out : [t];
+  }
+  var result=out.join('\n').replace(TRIM_RE,'');
+  result=result.replace(/(&nbsp;\s*\n?\s*){2,}/g,'&nbsp;\n');
+  result=result.replace(/\n{3,}/g,'\n\n');
+  document.getElementById('output').value=result;
+  updateStats();
+  if(document.getElementById('autoPreview').checked){
+    showPreview(result);
+  }
 }
-
-function parsePlainToBlocks(text) {
-    const lines = text.replace(/\r\n/g, '\n').split('\n');
-    const blocks = [];
-    let i = 0;
-    const firstLineH1 = document.getElementById('plainFirstLineH1').checked;
-
-    if (firstLineH1 && lines.length > 0) {
-        const first = lines[0].trim();
-        const second = lines[1] !== undefined ? lines[1].trim() : '';
-        if (first && !/^#{1,6}\s/.test(first) && first.length <= 40 && (second === '' || lines.length > 1)) {
-            blocks.push({ type: 'h', level: 1, text: first });
-            i = 1;
-            if (second === '') i = 2;
-        }
-    }
-
-    while (i < lines.length) {
-        const line = lines[i];
-        const m = line.match(/^(#{1,6})\s+(.*)$/);
-        if (m) {
-            blocks.push({ type: 'h', level: m[1].length, text: m[2].trim() });
-            i++;
-            continue;
-        }
-        let para = [];
-        while (i < lines.length && lines[i].trim() !== '') {
-            if (/^(#{1,6})\s+/.test(lines[i])) break;
-            para.push(lines[i]);
-            i++;
-        }
-        if (para.length) blocks.push({ type: 'p', text: para.join('\n').trim() });
-        while (i < lines.length && lines[i].trim() === '') i++;
-    }
-    return blocks;
+function isLikelyHeading(t,m){
+  if(t.length>m)return false;
+  if(/[。.!？?；;]$/.test(t))return false;
+  if(/,$/.test(t))return false;
+  if(/^\d+$/.test(t))return false;
+  if(/^(https?:\/\/|www\.)/i.test(t))return false;
+  if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t))return false;
+  if(t.split(/\s+/).length<=1&&t.length<5)return false;
+  return true;
 }
-
-function blocksToHtml(blocks, wrapP, blankLine) {
-    const parts = [];
-    const nb = '\n&nbsp;\n';
-    const maxLen = parseInt(document.getElementById('plainMaxLen').value, 10) || 320;
-    for (const b of blocks) {
-        if (b.type === 'h') {
-            const tag = 'h' + Math.min(6, Math.max(1, b.level));
-            parts.push(`<${tag}>${escapeHtml(b.text)}</${tag}>`);
-            if (blankLine) parts.push(nb);
-        } else {
-            if (wrapP) {
-                const segs = heuristicSegment(b.text, maxLen);
-                for (const seg of segs) {
-                    parts.push(`<p>${escapeHtml(seg)}</p>`);
-                    if (blankLine) parts.push(nb);
-                }
-            } else {
-                parts.push(escapeHtml(b.text));
-                if (blankLine) parts.push(nb);
-            }
-        }
-    }
-    return parts.join('\n').replace(/\n&nbsp;\n+$/, '').trim();
+function showPreview(html){
+  var p=document.getElementById('preview');
+  p.innerHTML=html;
+  p.style.display='block';
 }
-
-function plainTextToHtml(text) {
-    const t = (text || '').trim();
-    if (!t) return '';
-    return blocksToHtml(
-        parsePlainToBlocks(t),
-        document.getElementById('plainAutoP').checked,
-        document.getElementById('plainBlankLine').checked
-    );
+function copyOutput(){
+  var v=document.getElementById('output').value;
+  if(!v)return;
+  navigator.clipboard.writeText(v).then(showCopyTip).catch(function(){
+    document.getElementById('output').select();
+    document.execCommand('copy');
+    showCopyTip();
+  });
 }
-
-function setOutput(html) {
-    document.getElementById('output').value = html;
-    updateStats(html);
+function showCopyTip(){
+  var t=document.getElementById('copyTip');
+  t.style.display='inline';
+  setTimeout(function(){t.style.display='none';},2000);
 }
-
-function runPlainPipeline() {
-    const text = document.getElementById('inputPlain').value.trim();
-    if (!text) { alert('请先输入正文'); return; }
-    const maxLen = parseInt(document.getElementById('plainMaxLen').value, 10) || 320;
-    const segmented = heuristicSegment(text, maxLen).join('\n\n');
-    document.getElementById('inputPlain').value = segmented;
-    updateStats(segmented);
-    setOutput(plainTextToHtml(segmented));
+function downloadOutput(){
+  var v=document.getElementById('output').value;
+  if(!v)return;
+  var blob=new Blob([v],{type:'text/html'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='duanluo-formatted.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  var t=document.getElementById('copyTip');
+  t.textContent='\u2705 \u5DF2\u4E0B\u8F7D\uFF01';
+  t.style.display='inline';
+  setTimeout(function(){t.style.display='none';t.textContent='\u2705 \u5DF2\u590D\u5236\u5230\u526A\u8D34\u677F\uFF01';},2000);
 }
-
-function showCopyTipPlain() {
-    const tip = document.getElementById('copyTip');
-    tip.style.display = 'inline';
-    setTimeout(() => { tip.style.display = 'none'; }, 1000);
+function clearAll(){
+  document.getElementById('input').value='';
+  document.getElementById('output').value='';
+  document.getElementById('preview').style.display='none';
+  updateStats();
 }
-
-function copyOutput() {
-    const output = document.getElementById('output');
-    if (!output.value) { alert('没有内容可复制'); return; }
-    navigator.clipboard.writeText(output.value).then(showCopyTipPlain);
-}
-
-function clearPlain() {
-    document.getElementById('inputPlain').value = '';
-    document.getElementById('output').value = '';
-    updateStats('');
-}
-
-function updateStats(text) {
-    document.getElementById('charCount').textContent = '字符: ' + text.length;
-    document.getElementById('lineCount').textContent = '行数: ' + (text ? text.split('\n').length : 0);
-    const elementMatches = text.match(/<[a-z][a-z0-9]*[^>]*>/gi);
-    document.getElementById('elementCount').textContent = '元素: ' + (elementMatches ? elementMatches.length : 0);
-}
-
-document.getElementById('inputPlain').addEventListener('input', function () {
-    updateStats(this.value);
-});
-document.getElementById('output').addEventListener('input', function () {
-    updateStats(this.value);
+document.getElementById('input').addEventListener('input',function(){
+  updateStats();
+  if(document.getElementById('autoPreview').checked&&this.value.trim()){
+    smartFormat();
+  }
 });
 </script>
 </body>
