@@ -179,7 +179,7 @@ function smartFormat(){
       }
       out.push('&nbsp;');
     }else{
-      out.push(clean);
+      out.push('<p>'+clean+'</p>');
     }
   }
   var result=out.join('\n').replace(TRIM_RE,'');
